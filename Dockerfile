@@ -14,7 +14,8 @@ RUN apt-get update \
     && mkdir /papermc
 RUN git config --global user.email "you@example.com" \
     && git config --global user.name "Your Name" \
-    && git clone https://github.com/PaperMC/Paper -b ${PAPERMC_VERSION} /papermc
+    && git clone https://github.com/PaperMC/Paper /papermc \
+    && cd /papermc && git checkout ${PAPERMC_VERSION}
 WORKDIR /papermc
 RUN ./gradlew applyPatches && ./gradlew createReobfBundlerJar && mv /papermc/build/libs/paper-bundler*.jar /papermc/server.jar && ls -hal /papermc/build/libs
 
