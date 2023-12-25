@@ -7,7 +7,7 @@ RUN cargo install --path .
 
 FROM openjdk:17-slim as papermc_builder
 # 1.20.4
-ARG PAPERMC_VERSION=d960bdc1734e8074ec23fa0779bdff5a2cc56a5454fe71fe332616532814a85a
+ARG PAPERMC_VERSION=1cda66e3952e520de53a94e160be6a6a99305e70
 RUN apt-get update \
     && apt-get install -y git \
     && rm -rf /var/lib/apt/lists/* \
