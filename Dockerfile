@@ -19,6 +19,9 @@ RUN ./gradlew applyPatches && ./gradlew createReobfBundlerJar && mv /papermc/bui
 
 
 FROM openjdk:17-slim
+RUN apt-get update \
+    && apt-get updgrade -y \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=lazymc_builder /usr/local/cargo/bin/lazymc /usr/bin/
 COPY --from=papermc_builder /papermc/server.jar /usr/bin/
 COPY entrypoint.sh /entrypoint.sh
