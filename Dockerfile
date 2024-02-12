@@ -1,8 +1,8 @@
-FROM rust:1.70 as lazymc_builder
-RUN git clone https://github.com/timvisee/lazymc /usr/src/lazymc
+FROM rust:1.76 as lazymc_builder
+ARG LAZYMC_COMMIT=c3ebeb0
+RUN git clone https://github.com/koskev/lazymc /usr/src/lazymc && cd /usr/src/lazymc && git checkout ${LAZYMC_COMMIT}
 WORKDIR /usr/src/lazymc
 RUN cargo install --path .
-
 
 
 FROM openjdk:17-slim as papermc_builder
