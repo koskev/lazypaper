@@ -1,8 +1,15 @@
-FROM rust:1.76 as lazymc_builder
+FROM openjdk:17-slim as lazymc_builder
+# Prepare rustup
+RUN apt-get update \
+    && apt-get install -y curl git build-essential \
+    && rm -rf /var/lib/apt/lists/*
+ENV CARGO_HOME=/usr/local/cargo
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+
 ARG LAZYMC_COMMIT=c3ebeb0
 RUN git clone https://github.com/koskev/lazymc /usr/src/lazymc && cd /usr/src/lazymc && git checkout ${LAZYMC_COMMIT}
 WORKDIR /usr/src/lazymc
-RUN cargo install --path .
+RUN $CARGO_HOME/bin/cargo install --path .
 
 
 FROM openjdk:17-slim as papermc_builder
